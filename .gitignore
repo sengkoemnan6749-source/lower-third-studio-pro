@@ -1,0 +1,8 @@
+# Cache & Temporary Files
+__pycache__/
+*.pyc
+.edge_debug/
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LowerThird Studio Pro - Motion Graphic Generator</title>
+  
+  <!-- Standalone Local Tailwind CSS (100% Offline Reliable) -->
+  <link rel="stylesheet" href="css/tailwind.min.css">
+  
+  <!-- Google Fonts for diverse typography & Khmer Unicode Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Battambang:wght@400;700;900&family=Bayon&family=Bebas+Neue&family=Bokor&family=Cinzel:wght@600;700;900&family=Dangrek&family=Fira+Code:wght@500;700&family=Inter:wght@300;400;500;600;700;800&family=Kantumruy+Pro:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Koulen&family=Montserrat:wght@400;600;700;800;900&family=Moul&family=Nokora:wght@400;700&family=Orbitron:wght@500;700;900&family=Oswald:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@400;600;700&family=Preahvihear&family=Raleway:wght@600;700;800&family=Roboto:wght@400;500;700;900&family=Siemreap&display=swap" rel="stylesheet">
+  
+  <!-- Local Lucide Icons -->
+  <script src="js/lucide.min.js"></script>
+  
+  <!-- Studio Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-dark-950 text-slate-100 h-screen w-screen overflow-hidden flex flex-col font-sans select-none">
+
+  <!-- Header -->
+  <header class="h-14 shrink-0 border-b border-gray-800 bg-dark-900 px-6 flex items-center justify-between z-40">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+        <i data-lucide="layers" class="w-4 h-4 text-white"></i>
+      </div>
+      <div>
+        <h1 class="text-sm font-bold tracking-wider text-white flex items-center gap-2">
+          LOWER THIRD <span class="text-xs bg-indigo-900/50 text-indigo-400 border border-indigo-500/30 px-1.5 py-0.5 rounded font-mono uppercase">Studio Pro</span>
+        </h1>
+      </div>
+    </div>
+
+    <!-- Quick Actions in Header -->
+    <div class="flex items-center gap-2">
+      <!-- Video Export Duration Controller (5s, 10s, 20s, or Custom) -->
+      <div class="flex items-center gap-1.5 bg-dark-800 border border-indigo-500/30 rounded-lg px-2.5 py-1 text-xs" title="Select or type video export duration (e.g. 20s for Facebook sponsor video)">
+        <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
+        <span class="text-gray-400 text-[11px] font-medium hidden sm:inline" data-i18n="header.length">Length:</span>
+        <select id="header-select-duration" class="bg-dark-900 border border-gray-700 text-white rounded px-1.5 py-0.5 text-xs font-mono font-semibold focus:outline-none cursor-pointer">
+          <option value="5" data-i18n="header.dur_5">5s (Quick)</option>
+          <option value="10" data-i18n="header.dur_10">10s (Standard)</option>
+          <option value="15" data-i18n="header.dur_15">15s (Reel)</option>
+          <option value="20" selected data-i18n="header.dur_20">20s (Movie Sponsor)</option>
+          <option value="30" data-i18n="header.dur_30">30s (Long Loop)</option>
+          <option value="60" data-i18n="header.dur_60">60s (Live)</option>
+          <option value="custom" data-i18n="header.dur_custom">Custom...</option>
+        </select>
+        <div id="header-custom-dur-wrap" class="hidden items-center gap-1">
+          <input type="number" id="header-custom-dur-input" min="1" max="180" step="1" value="20" class="w-12 bg-dark-900 border border-indigo-500 rounded px-1 py-0.5 text-xs font-mono text-white text-center">
+          <span class="text-[10px] text-gray-400">s</span>
+        </div>
+      </div>
+
+      <button id="btn-export-png" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 hover:bg-gray-700 border border-gray-700 transition flex items-center gap-1.5 text-gray-300 hover:text-white" title="Export Cropped High-Res PNG (Sharp & No Empty Borders for CapCut)">
+        <i data-lucide="image" class="w-3.5 h-3.5 text-emerald-400"></i>
+        <span data-i18n="header.snapshot_png">Snapshot PNG (Sharp Badge)</span>
+      </button>
+
+      <button id="btn-export-webm" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/25 transition flex items-center gap-2 active:scale-95" title="Export 60fps Alpha WebM for Premiere, DaVinci, CapCut PC">
+        <i data-lucide="video" class="w-4 h-4"></i>
+        <span id="export-btn-text" data-i18n="header.export_webm">Export Video (WebM)</span>
+      </button>
+
+      <button id="btn-export-green-video" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-600/50 text-emerald-300 hover:text-white transition flex items-center gap-1.5" title="Export Green Screen Video for CapCut Mobile Chroma Key">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+        <span data-i18n="header.green_video">Green Screen Video</span>
+      </button>
+
+      <div class="h-5 w-px bg-gray-800 mx-1"></div>
+
+      <button id="btn-obs-mode" title="Open OBS Live Clean Overlay" class="px-2.5 py-1.5 rounded-lg text-xs bg-gray-800 hover:bg-gray-700 border border-gray-700 text-gray-400 hover:text-indigo-400 transition flex items-center gap-1">
+        <i data-lucide="radio" class="w-3.5 h-3.5"></i>
+        <span data-i18n="header.obs_link">OBS Link</span>
+      </button>
+
+      <div class="h-5 w-px bg-gray-800 mx-1"></div>
+
+      <!-- Language Switcher: 🇰🇭 ខ្មែរ / 🇬🇧 EN -->
+      <div class="flex items-center bg-dark-950 border border-indigo-500/40 rounded-lg p-0.5 text-xs shadow-inner" id="lang-switcher-wrap" title="Change Language / ប្តូរភាសា">
+        <button id="btn-lang-km" type="button" class="px-2.5 py-1 rounded text-xs transition flex items-center gap-1.5 bg-indigo-600 text-white font-bold shadow" title="ភាសាខ្មែរ (Khmer)">
+          <span class="text-sm">🇰🇭</span> <span class="font-sans">ខ្មែរ</span>
+        </button>
+        <button id="btn-lang-en" type="button" class="px-2 py-1 rounded text-xs transition flex items-center gap-1.5 text-gray-400 hover:text-white font-medium" title="English">
+          <span class="text-sm">🇬🇧</span> <span class="font-sans">EN</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <div class="flex-1 flex overflow-hidden h-[calc(100vh-3.5rem)]">
+
+    <!-- LEFT SIDEBAR: Presets & Design Customizer -->
+    <aside class="studio-sidebar shrink-0 border-r border-gray-800 bg-dark-900 flex flex-col h-full overflow-hidden">
+
+      <!-- Pinned Tabs Navigation (Never scrolls out of view / ខ្ទាស់នៅខាងលើជានិច្ច) -->
+      <div class="grid grid-cols-3 p-2 gap-1.5 border-b border-gray-800 bg-dark-950 text-xs shrink-0 z-30 shadow-md">
+        <button class="tab-btn active px-2 py-2 rounded-md font-medium transition text-center" data-tab="tab-presets">
+          <i data-lucide="layout-grid" class="w-3.5 h-3.5 mx-auto mb-1"></i>
+          <span data-i18n="tabs.templates">Templates</span>
+        </button>
+        <button class="tab-btn px-2 py-2 rounded-md font-medium transition text-center text-gray-400 hover:text-white" data-tab="tab-builder">
+          <i data-lucide="mouse-pointer" class="w-3.5 h-3.5 mx-auto mb-1"></i>
+          <span data-i18n="tabs.studio">Canvas Studio</span>
+        </button>
+        <button class="tab-btn px-2 py-2 rounded-md font-medium transition text-center text-gray-400 hover:text-white" data-tab="tab-animation">
+          <i data-lucide="play-circle" class="w-3.5 h-3.5 mx-auto mb-1"></i>
+          <span data-i18n="tabs.motion">Motion</span>
+        </button>
+      </div>
+
+      <!-- Scrollable Tab Content Container -->
+      <div class="sidebar-scroll-container flex-1 overflow-y-auto custom-scrollbar">
+
+        <!-- TAB 1: TEMPLATES (MY CUSTOM TEMPLATES + CURATED ESSENTIALS) -->
+        <div id="tab-presets" class="tab-content p-4 space-y-4">
+          
+          <!-- SECTION 1: MY CUSTOM SAVED TEMPLATES (ពុម្ពគំរូរបស់ខ្ញុំ) -->
+          <div class="space-y-2.5">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-2 gap-1.5">
+              <h2 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5 min-w-0">
+                <i data-lucide="folder-heart" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
+                <span class="truncate" data-i18n="templates.my_templates">My Templates (ពុម្ពគំរូរបស់ខ្ញុំ)</span>
+              </h2>
+            <button id="btn-create-new-template" class="px-2 py-0.5 rounded bg-indigo-600 hover:bg-indigo-500 text-white text-[11px] font-semibold flex items-center gap-1 transition shadow-sm shrink-0">
+              <i data-lucide="plus" class="w-3 h-3"></i>
+              <span data-i18n="templates.create_new">Create New</span>
+            </button>
+          </div>
+          
+          <!-- 2-Column Grid for Custom Saved Templates -->
+          <div id="presets-saved-templates-list" class="grid grid-cols-2 gap-2">
+            <!-- Rendered by JS in 2-Column Grid -->
+          </div>
+        </div>
+
+        <!-- SECTION 2: CURATED STARTER TEMPLATES -->
+        <div class="space-y-2 pt-2 border-t border-gray-800">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xs font-semibold text-gray-300 uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span data-i18n="templates.popular_starters">Popular Starter Templates (ពុម្ពគំរូពេញនិយម)</span>
+            </h2>
+            <span class="text-[10px] text-gray-500" data-i18n="templates.styles_count">4 Styles</span>
+          </div>
+          <p class="text-[11px] text-gray-400 leading-tight" data-i18n="templates.popular_starters_sub">Curated high-performance lower-third styles ready for Facebook, YouTube & TV.</p>
+          
+          <div class="grid grid-cols-2 gap-2.5" id="presets-grid">
+            <!-- Filtered, clean curated cards generated by JS -->
+          </div>
+        </div>
+
+
+      </div>
+
+      <!-- TAB 2: CANVAS DRAG & DROP STUDIO (CANVA / CAPCUT STYLE) -->
+      <div id="tab-builder" class="tab-content hidden p-4 space-y-4">
+        
+        <!-- Header -->
+        <div class="flex items-center justify-between border-b border-gray-800 pb-2.5">
+          <div>
+            <h2 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="mouse-pointer" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span data-i18n="studio.title">Canvas Drag & Drop Studio</span>
+            </h2>
+            <p class="text-[11px] text-gray-400 mt-0.5" data-i18n="studio.subtitle">Click & drag any element on the preview</p>
+          </div>
+          <button id="btn-save-canvas-template" class="px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white text-[11px] font-semibold flex items-center gap-1 shadow-md transition">
+            <i data-lucide="save" class="w-3 h-3"></i>
+            <span data-i18n="studio.btn_save">Save Design</span>
+          </button>
+        </div>
+
+
+
+        <!-- 1-Click Starter Compositions -->
+        <div class="space-y-1.5">
+          <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider" data-i18n="studio.starter_designs">1-Click Starter Designs</label>
+          <div class="grid grid-cols-2 gap-1.5">
+            <button class="starter-layout-btn px-2 py-1.5 rounded-lg text-xs bg-dark-800 hover:bg-gray-800 text-yellow-300 hover:text-white border border-yellow-500/50 font-medium text-left flex items-center gap-1.5 transition" data-starter="fb_movie" title="Freshy / Fly Movie Dual-Tier Ribbon Sponsor Banner">
+              <span>🎬</span> <span data-i18n="studio.starter_movie">Movie Sponsor Ribbon</span>
+            </button>
+            <button class="starter-layout-btn px-2 py-1.5 rounded-lg text-xs bg-dark-800 hover:bg-gray-800 text-emerald-300 hover:text-white border border-emerald-500/50 font-medium text-left flex items-center gap-1.5 transition" data-starter="fb_product" title="LXShort 3D Product Pop-Out Sponsor Card">
+              <span>📱</span> <span data-i18n="studio.starter_product">3D Product Pop-Out</span>
+            </button>
+            <button class="starter-layout-btn px-2 py-1.5 rounded-lg text-xs bg-dark-800 hover:bg-gray-800 text-gray-300 hover:text-white border border-gray-700 font-medium text-left flex items-center gap-1.5 transition" data-starter="product">
+              <span>🛍️</span> <span data-i18n="studio.starter_card">Product Card Pro</span>
+            </button>
+            <button class="starter-layout-btn px-2 py-1.5 rounded-lg text-xs bg-dark-800 hover:bg-gray-800 text-gray-300 hover:text-white border border-gray-700 font-medium text-left flex items-center gap-1.5 transition" data-starter="cyber">
+              <span>⚡</span> <span data-i18n="studio.starter_cyber">Cyberpunk HUD</span>
+            </button>
+            <button class="starter-layout-btn px-2 py-1.5 rounded-lg text-xs bg-dark-800 hover:bg-gray-800 text-gray-300 hover:text-white border border-gray-700 font-medium text-left flex items-center gap-1.5 transition" data-starter="luxury">
+              <span>💎</span> <span data-i18n="studio.starter_luxury">Luxury Pill</span>
+            </button>
+            <button class="starter-layout-btn px-2 py-1.5 rounded-lg text-xs bg-dark-800 hover:bg-gray-800 text-gray-300 hover:text-white border border-gray-700 font-medium text-left flex items-center gap-1.5 transition" data-starter="blank">
+              <span>⬜</span> <span data-i18n="studio.starter_blank">Blank Canvas</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- + Add Elements Toolbar (Canva Style) -->
+        <div class="border-t border-gray-800 pt-3 space-y-2">
+          <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-indigo-400"></i>
+            <span data-i18n="studio.add_elements">+ Add Elements to Canvas</span>
+          </label>
+          <div class="grid grid-cols-3 gap-1.5">
+            <button id="btn-add-text" class="px-2 py-1.5 rounded-lg text-xs bg-indigo-900/30 hover:bg-indigo-900/50 text-indigo-300 border border-indigo-500/40 font-medium flex items-center justify-center gap-1 transition">
+              <i data-lucide="type" class="w-3 h-3"></i> <span data-i18n="studio.add_text">+ Text</span>
+            </button>
+            <button id="btn-add-card" class="px-2 py-1.5 rounded-lg text-xs bg-indigo-900/30 hover:bg-indigo-900/50 text-indigo-300 border border-indigo-500/40 font-medium flex items-center justify-center gap-1 transition">
+              <i data-lucide="square" class="w-3 h-3"></i> <span data-i18n="studio.add_box">+ Box / Card</span>
+            </button>
+            <button id="btn-add-photo" class="px-2 py-1.5 rounded-lg text-xs bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/50 font-medium flex items-center justify-center gap-1 transition shadow-sm" title="Upload photos directly to canvas">
+              <i data-lucide="image-plus" class="w-3 h-3 text-indigo-400"></i> <span data-i18n="studio.add_photo">+ Photo</span>
+            </button>
+            <button id="btn-add-button" class="px-2 py-1.5 rounded-lg text-xs bg-dark-800 hover:bg-gray-800 text-gray-300 hover:text-white border border-gray-700 font-medium flex items-center justify-center gap-1 transition">
+              <i data-lucide="mouse-pointer" class="w-3 h-3"></i> <span data-i18n="studio.add_cta">+ CTA Button</span>
+            </button>
+            <button id="btn-add-badge" class="px-2 py-1.5 rounded-lg text-xs bg-dark-800 hover:bg-gray-800 text-gray-300 hover:text-white border border-gray-700 font-medium flex items-center justify-center gap-1 transition">
+              <i data-lucide="award" class="w-3 h-3"></i> <span data-i18n="studio.add_badge">+ Badge</span>
+            </button>
+            <button id="btn-add-stars" class="px-2 py-1.5 rounded-lg text-xs bg-dark-800 hover:bg-gray-800 text-gray-300 hover:text-white border border-gray-700 font-medium flex items-center justify-center gap-1 transition">
+              <i data-lucide="star" class="w-3 h-3"></i> <span data-i18n="studio.add_stars">+ 5 Stars</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Canva Shapes & Draw Shape Tool -->
+        <div class="border-t border-gray-800 pt-3 space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="shapes" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span data-i18n="studio.draw_shapes">Draw Shapes (Canva)</span>
+            </label>
+            <button id="btn-toggle-draw-mode" class="px-2 py-0.5 rounded text-[11px] font-semibold border border-indigo-500/50 bg-dark-800 hover:bg-indigo-900/40 text-indigo-300 transition flex items-center gap-1" title="Click to toggle drag-to-draw on canvas">
+              <i data-lucide="pencil" class="w-3 h-3"></i>
+              <span id="btn-draw-mode-label" data-i18n="studio.draw_mode">Draw Mode</span>
+            </button>
+          </div>
+
+          <!-- Quick Shape Palette (Click to insert or drag to draw) -->
+          <div class="grid grid-cols-5 gap-1.5 text-[11px]">
+            <button class="shape-palette-btn p-1.5 rounded-lg bg-dark-800 hover:bg-indigo-950/60 hover:border-indigo-500/50 border border-gray-700 text-gray-300 hover:text-white flex flex-col items-center gap-1 transition" data-shape="rounded" title="Rounded Box">
+              <span class="text-base leading-none">🔲</span>
+              <span class="text-[9px]" data-i18n="shape.round">Round</span>
+            </button>
+            <button class="shape-palette-btn p-1.5 rounded-lg bg-dark-800 hover:bg-indigo-950/60 hover:border-indigo-500/50 border border-gray-700 text-gray-300 hover:text-white flex flex-col items-center gap-1 transition" data-shape="sharp" title="Rectangle Box">
+              <span class="text-base leading-none">⬛</span>
+              <span class="text-[9px]" data-i18n="shape.box">Box</span>
+            </button>
+            <button class="shape-palette-btn p-1.5 rounded-lg bg-dark-800 hover:bg-indigo-950/60 hover:border-indigo-500/50 border border-gray-700 text-gray-300 hover:text-white flex flex-col items-center gap-1 transition" data-shape="circle" title="Circle / Ellipse">
+              <span class="text-base leading-none">⚪</span>
+              <span class="text-[9px]" data-i18n="shape.circle">Circle</span>
+            </button>
+            <button class="shape-palette-btn p-1.5 rounded-lg bg-dark-800 hover:bg-indigo-950/60 hover:border-indigo-500/50 border border-gray-700 text-gray-300 hover:text-white flex flex-col items-center gap-1 transition" data-shape="pill" title="Pill Capsule">
+              <span class="text-base leading-none">💊</span>
+              <span class="text-[9px]" data-i18n="shape.pill">Pill</span>
+            </button>
+            <button class="shape-palette-btn p-1.5 rounded-lg bg-dark-800 hover:bg-indigo-950/60 hover:border-indigo-500/50 border border-gray-700 text-gray-300 hover:text-white flex flex-col items-center gap-1 transition" data-shape="star" title="5-Point Star">
+              <span class="text-base leading-none">⭐</span>
+              <span class="text-[9px]" data-i18n="shape.star">Star</span>
+            </button>
+            <button class="shape-palette-btn p-1.5 rounded-lg bg-dark-800 hover:bg-indigo-950/60 hover:border-indigo-500/50 border border-gray-700 text-gray-300 hover:text-white flex flex-col items-center gap-1 transition" data-shape="triangle" title="Triangle">
+              <span class="text-base leading-none">🔺</span>
+              <span class="text-[9px]" data-i18n="shape.triangle">Triangle</span>
+            </button>
+            <button class="shape-palette-btn p-1.5 rounded-lg bg-dark-800 hover:bg-indigo-950/60 hover:border-indigo-500/50 border border-gray-700 text-gray-300 hover:text-white flex flex-col items-center gap-1 transition" data-shape="diamond" title="Diamond Rhombus">
+              <span class="text-base leading-none">💠</span>
+              <span class="text-[9px]" data-i18n="shape.diamond">Diamond</span>
+            </button>
+            <button class="shape-palette-btn p-1.5 rounded-lg bg-dark-800 hover:bg-indigo-950/60 hover:border-indigo-500/50 border border-gray-700 text-gray-300 hover:text-white flex flex-col items-center gap-1 transition" data-shape="hexagon" title="Hexagon">
+              <span class="text-base leading-none">⬢</span>
+              <span class="text-[9px]" data-i18n="shape.hexagon">Hexagon</span>
+            </button>
+            <button class="shape-palette-btn p-1.5 rounded-lg bg-dark-800 hover:bg-indigo-950/60 hover:border-indigo-500/50 border border-gray-700 text-gray-300 hover:text-white flex flex-col items-center gap-1 transition" data-shape="arrow" title="Pointer Arrow">
+              <span class="text-base leading-none">➡️</span>
+              <span class="text-[9px]" data-i18n="shape.arrow">Arrow</span>
+            </button>
+            <button class="shape-palette-btn p-1.5 rounded-lg bg-dark-800 hover:bg-indigo-950/60 hover:border-indigo-500/50 border border-gray-700 text-gray-300 hover:text-white flex flex-col items-center gap-1 transition" data-shape="line" title="Straight Line">
+              <span class="text-base leading-none">➖</span>
+              <span class="text-[9px]" data-i18n="shape.line">Line</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Selected Element Inspector -->
+        <div id="inspector-panel" class="border-t border-gray-800 pt-3 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="sliders" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span id="inspector-element-title">Selected Element</span>
+            </span>
+            <div class="flex items-center gap-1">
+              <button id="btn-inspector-copy" title="Copy Element (Ctrl+C)" class="p-1 rounded bg-dark-800 text-gray-400 hover:text-indigo-400 transition">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              </button>
+              <button id="btn-inspector-paste" title="Paste Element (Ctrl+V)" class="p-1 rounded bg-dark-800 text-gray-400 hover:text-indigo-400 transition">
+                <i data-lucide="clipboard" class="w-3.5 h-3.5"></i>
+              </button>
+              <button id="btn-inspector-dup" title="Duplicate Element (Ctrl+D)" class="p-1 rounded bg-dark-800 text-gray-400 hover:text-emerald-400 transition">
+                <i data-lucide="copy-plus" class="w-3.5 h-3.5"></i>
+              </button>
+              <button id="btn-inspector-del" title="Delete Element (Del)" class="p-1 rounded bg-dark-800 text-gray-400 hover:text-red-400 transition">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Position & Size Numerical Fields -->
+          <div class="grid grid-cols-4 gap-1.5 text-[11px]">
+            <div class="p-1.5 rounded bg-dark-800 border border-gray-700">
+              <span class="text-gray-500 block text-[9px] font-mono">POS X</span>
+              <input type="number" id="prop-pos-x" class="w-full bg-transparent text-white font-mono text-xs focus:outline-none">
+            </div>
+            <div class="p-1.5 rounded bg-dark-800 border border-gray-700">
+              <span class="text-gray-500 block text-[9px] font-mono">POS Y</span>
+              <input type="number" id="prop-pos-y" class="w-full bg-transparent text-white font-mono text-xs focus:outline-none">
+            </div>
+            <div class="p-1.5 rounded bg-dark-800 border border-gray-700">
+              <span class="text-gray-500 block text-[9px] font-mono">WIDTH</span>
+              <input type="number" id="prop-width" class="w-full bg-transparent text-white font-mono text-xs focus:outline-none">
+            </div>
+            <div class="p-1.5 rounded bg-dark-800 border border-gray-700">
+              <span class="text-gray-500 block text-[9px] font-mono">HEIGHT</span>
+              <input type="number" id="prop-height" class="w-full bg-transparent text-white font-mono text-xs focus:outline-none">
+            </div>
+          </div>
+
+          <!-- Rotation Angle Control (Slider, Number, & Quick Presets) -->
+          <div class="p-2 rounded-lg bg-dark-800/80 border border-gray-700/80 space-y-1.5">
+            <div class="flex items-center justify-between text-[11px]">
+              <span class="text-gray-400 flex items-center gap-1 font-medium">
+                <i data-lucide="rotate-cw" class="w-3 h-3 text-indigo-400"></i>
+                <span>Rotation</span>
+              </span>
+              <div class="flex items-center gap-1">
+                <input type="number" id="prop-rot-num" min="-180" max="360" value="0" class="w-12 bg-dark-900 border border-gray-700 rounded px-1 text-center font-mono text-indigo-300 text-[11px] focus:outline-none">
+                <span class="text-gray-500 text-[10px]">°</span>
+              </div>
+            </div>
+            <input type="range" id="prop-rotation" min="-180" max="180" value="0" class="w-full accent-indigo-500 cursor-pointer">
+            <div class="grid grid-cols-5 gap-1 text-[10px]">
+              <button class="btn-quick-rot py-0.5 rounded bg-dark-900 hover:bg-gray-800 text-gray-300 border border-gray-700 transition" data-rot="0">0°</button>
+              <button class="btn-quick-rot py-0.5 rounded bg-dark-900 hover:bg-gray-800 text-gray-300 border border-gray-700 transition" data-rot="45">45°</button>
+              <button class="btn-quick-rot py-0.5 rounded bg-dark-900 hover:bg-gray-800 text-gray-300 border border-gray-700 transition" data-rot="90">90°</button>
+              <button class="btn-quick-rot py-0.5 rounded bg-dark-900 hover:bg-gray-800 text-gray-300 border border-gray-700 transition" data-rot="180">180°</button>
+              <button class="btn-quick-rot py-0.5 rounded bg-dark-900 hover:bg-gray-800 text-indigo-300 border border-indigo-500/40 transition" data-rot="-15">-15°</button>
+            </div>
+          </div>
+
+          <!-- Alignment Buttons -->
+          <div class="grid grid-cols-4 gap-1 text-[10px]">
+            <button id="btn-align-left" class="py-1 rounded bg-dark-800 hover:bg-gray-800 text-gray-400 hover:text-white border border-gray-700 transition">Left</button>
+            <button id="btn-align-center-x" class="py-1 rounded bg-dark-800 hover:bg-gray-800 text-gray-400 hover:text-white border border-gray-700 transition">Center H</button>
+            <button id="btn-align-center-y" class="py-1 rounded bg-dark-800 hover:bg-gray-800 text-gray-400 hover:text-white border border-gray-700 transition">Center V</button>
+            <button id="btn-align-right" class="py-1 rounded bg-dark-800 hover:bg-gray-800 text-gray-400 hover:text-white border border-gray-700 transition">Right</button>
+          </div>
+
+          <!-- Dynamic Properties Container -->
+          <div id="inspector-dynamic-props" class="space-y-2.5">
+            <!-- Dynamically populated based on element type -->
+          </div>
+        </div>
+
+        <!-- Layers Panel (Layer Stack) -->
+        <div class="border-t border-gray-800 pt-3 space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="layers" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>Layers</span>
+            </label>
+            <span id="label-layer-count" class="text-[10px] text-gray-500">6 elements</span>
+          </div>
+          <div id="canvas-layers-list" class="space-y-1 max-h-48 overflow-y-auto pr-1">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Saved Canvas Templates -->
+        <div class="border-t border-gray-800 pt-3 space-y-2">
+          <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider">My Saved Designs</label>
+          <div id="canvas-saved-designs-list" class="space-y-1.5 text-xs">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TAB 2: CONTENT & LOGO (HIDDEN - USER DOES NOT USE) -->
+      <div id="tab-content" class="tab-content hidden p-4 space-y-4" style="display: none !important;">
+        <!-- Direct Edit on Canvas Notice -->
+        <div class="p-3 rounded-xl bg-indigo-950/60 border border-indigo-500/50 text-xs text-indigo-200 flex items-center justify-between shadow-lg">
+          <div class="flex items-center gap-2">
+            <span class="text-base">🎨</span>
+            <span><strong>Customizing On Canvas:</strong> Double-click any text directly on the preview screen to edit!</span>
+          </div>
+          <button type="button" onclick="document.querySelector('.tab-btn[data-tab=\'tab-builder\']').click()" class="px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-[11px] shrink-0 shadow transition">Canvas Studio</button>
+        </div>
+
+        <div class="space-y-3">
+          <div>
+            <label class="block text-xs font-medium text-gray-300 mb-1">Title / Speaker Name</label>
+            <input type="text" id="input-title" value="ALEX RIVERA" class="w-full bg-dark-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 transition">
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-gray-300 mb-1">Subtitle / Role / Handle</label>
+            <input type="text" id="input-subtitle" value="Executive Creative Director | Visionary Labs" class="w-full bg-dark-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 transition">
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-gray-300 mb-1">Badge / Tag (Optional)</label>
+            <input type="text" id="input-badge" value="EXCLUSIVE" class="w-full bg-dark-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 transition">
+          </div>
+        </div>
+
+        <!-- Typography / Font Selection in Content Tab -->
+        <div class="border-t border-gray-800 pt-4 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="type" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>Font Family</span>
+            </label>
+            <span class="text-[11px] px-2 py-0.5 rounded bg-indigo-950 border border-indigo-500/40 text-indigo-300 font-mono" id="label-active-font">Inter</span>
+          </div>
+
+          <!-- Font Select Dropdown with Khmer Fonts at Top -->
+          <select id="select-font-content" class="w-full bg-dark-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500 transition cursor-pointer">
+            <optgroup label="🇰🇭 Khmer Unicode Fonts (ពុម្ពអក្សរខ្មែរ)">
+              <option value="Kantumruy Pro">🇰🇭 Kantumruy Pro (Modern Clean)</option>
+              <option value="Moul">🇰🇭 Moul (មូឡ - អក្សរមូល Headline)</option>
+              <option value="Battambang">🇰🇭 Battambang (បាត់ដំបង - Classic)</option>
+              <option value="Koulen">🇰🇭 Koulen (គូលែន - Tall Bold)</option>
+              <option value="Bayon">🇰🇭 Bayon (បាយ័ន - Heavy Title)</option>
+              <option value="Dangrek">🇰🇭 Dangrek (ដងរែក - Display)</option>
+              <option value="Siemreap">🇰🇭 Siemreap (សៀមរាប - Clean Body)</option>
+              <option value="Preahvihear">🇰🇭 Preahvihear (ព្រះវិហារ)</option>
+              <option value="Bokor">🇰🇭 Bokor (បូកគោ)</option>
+              <option value="Nokora">🇰🇭 Nokora (នគរា)</option>
+            </optgroup>
+            <optgroup label="Modern Sans (Clean & Tech)">
+              <option value="Inter" selected>Inter (Clean Modern Sans)</option>
+              <option value="Montserrat">Montserrat (Bold Commercial)</option>
+              <option value="Poppins">Poppins (Friendly Geometric)</option>
+              <option value="Roboto">Roboto (Crisp Technical)</option>
+              <option value="Raleway">Raleway (High-Fashion Sans)</option>
+            </optgroup>
+            <optgroup label="Headlines & Athletic (Heavy Impact)">
+              <option value="Bebas Neue">Bebas Neue (Tall Broadcast)</option>
+              <option value="Anton">Anton (Heavyweight Block)</option>
+              <option value="Oswald">Oswald (Condensed Impact)</option>
+            </optgroup>
+            <optgroup label="Futuristic & Code">
+              <option value="Orbitron">Orbitron (Cyber / Sci-Fi HUD)</option>
+              <option value="Fira Code">Fira Code (Developer Monospace)</option>
+            </optgroup>
+            <optgroup label="Luxury & Editorial Serif">
+              <option value="Playfair Display">Playfair Display (Luxury Editorial)</option>
+              <option value="Cinzel">Cinzel (Cinematic Roman Serif)</option>
+            </optgroup>
+          </select>
+
+          <!-- Quick 1-Click Font Preview Chips -->
+          <div>
+            <span class="text-[11px] text-gray-400 block mb-1.5">Quick Font Picker:</span>
+            <div class="grid grid-cols-4 gap-1.5" id="font-chips-container">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- MULTI-IMAGE MEDIA MANAGER (UNLIMITED & 1-CLICK UPLOAD) -->
+        <div class="border-t border-gray-800 pt-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="images" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>Photos &amp; Product Images</span>
+            </label>
+            <span class="text-[10px] text-emerald-400 font-mono font-semibold">Unlimited</span>
+          </div>
+
+          <!-- 1-Click Upload Any Photo Button -->
+          <button id="btn-sidebar-upload-any" class="w-full py-2 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition shadow shadow-indigo-600/30">
+            <i data-lucide="image-plus" class="w-4 h-4"></i>
+            <span>+ Upload Photo (Click to Add Any Image)</span>
+          </button>
+
+          <div class="grid grid-cols-3 gap-2">
+            <!-- Slot 1 -->
+            <div class="bg-dark-800 border border-gray-700 rounded-xl p-2 flex flex-col items-center text-center group hover:border-indigo-500/50 transition">
+              <span class="text-[10px] font-semibold text-indigo-300 mb-1">1. Hero / Front</span>
+              <div class="w-14 h-14 rounded-lg bg-gray-900 border border-gray-700 overflow-hidden flex items-center justify-center relative cursor-pointer" onclick="document.getElementById('input-file-slot-1').click()">
+                <i data-lucide="image-plus" class="w-5 h-5 text-gray-500" id="slot-1-placeholder"></i>
+                <img id="slot-1-img" class="w-full h-full object-cover hidden" alt="Image 1">
+              </div>
+              <input type="file" id="input-file-slot-1" accept="image/*" class="hidden">
+              <button onclick="document.getElementById('input-file-slot-1').click()" class="mt-1.5 text-[10px] px-2 py-0.5 rounded bg-gray-700 hover:bg-gray-600 text-gray-200 transition">Upload</button>
+              <button id="btn-remove-slot-1" class="text-[9px] text-red-400 hover:text-red-300 mt-1 hidden">Remove</button>
+            </div>
+
+            <!-- Slot 2 -->
+            <div class="bg-dark-800 border border-gray-700 rounded-xl p-2 flex flex-col items-center text-center group hover:border-purple-500/50 transition">
+              <span class="text-[10px] font-semibold text-purple-300 mb-1">2. Angle / Detail</span>
+              <div class="w-14 h-14 rounded-lg bg-gray-900 border border-gray-700 overflow-hidden flex items-center justify-center relative cursor-pointer" onclick="document.getElementById('input-file-slot-2').click()">
+                <i data-lucide="image-plus" class="w-5 h-5 text-gray-500" id="slot-2-placeholder"></i>
+                <img id="slot-2-img" class="w-full h-full object-cover hidden" alt="Image 2">
+              </div>
+              <input type="file" id="input-file-slot-2" accept="image/*" class="hidden">
+              <button onclick="document.getElementById('input-file-slot-2').click()" class="mt-1.5 text-[10px] px-2 py-0.5 rounded bg-gray-700 hover:bg-gray-600 text-gray-200 transition">Upload</button>
+              <button id="btn-remove-slot-2" class="text-[9px] text-red-400 hover:text-red-300 mt-1 hidden">Remove</button>
+            </div>
+
+            <!-- Slot 3 -->
+            <div class="bg-dark-800 border border-gray-700 rounded-xl p-2 flex flex-col items-center text-center group hover:border-pink-500/50 transition">
+              <span class="text-[10px] font-semibold text-pink-300 mb-1">3. Badge / QR</span>
+              <div class="w-14 h-14 rounded-lg bg-gray-900 border border-gray-700 overflow-hidden flex items-center justify-center relative cursor-pointer" onclick="document.getElementById('input-file-slot-3').click()">
+                <i data-lucide="image-plus" class="w-5 h-5 text-gray-500" id="slot-3-placeholder"></i>
+                <img id="slot-3-img" class="w-full h-full object-cover hidden" alt="Image 3">
+              </div>
+              <input type="file" id="input-file-slot-3" accept="image/*" class="hidden">
+              <button onclick="document.getElementById('input-file-slot-3').click()" class="mt-1.5 text-[10px] px-2 py-0.5 rounded bg-gray-700 hover:bg-gray-600 text-gray-200 transition">Upload</button>
+              <button id="btn-remove-slot-3" class="text-[9px] text-red-400 hover:text-red-300 mt-1 hidden">Remove</button>
+            </div>
+          </div>
+
+          <!-- Preset Icon Picker -->
+          <div>
+            <span class="text-xs text-gray-400 block mb-1.5">Or choose a quick icon badge:</span>
+            <div class="grid grid-cols-6 gap-1.5" id="icon-picker">
+              <!-- Icons populated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: STYLE & COLORS (HIDDEN - USER DOES NOT USE) -->
+      <div id="tab-style" class="tab-content hidden p-4 space-y-4" style="display: none !important;">
+        <!-- Color Palettes -->
+        <div class="space-y-3">
+          <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Color Customization</label>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs text-gray-400 mb-1">Primary Color</label>
+              <div class="flex items-center gap-2 bg-dark-800 border border-gray-700 rounded-lg p-1.5">
+                <input type="color" id="input-color-primary" value="#6366f1" class="w-7 h-7 rounded cursor-pointer border-0 bg-transparent">
+                <input type="text" id="text-color-primary" value="#6366f1" class="w-full bg-transparent text-xs font-mono uppercase focus:outline-none">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs text-gray-400 mb-1">Accent / Glow</label>
+              <div class="flex items-center gap-2 bg-dark-800 border border-gray-700 rounded-lg p-1.5">
+                <input type="color" id="input-color-accent" value="#ec4899" class="w-7 h-7 rounded cursor-pointer border-0 bg-transparent">
+                <input type="text" id="text-color-accent" value="#ec4899" class="w-full bg-transparent text-xs font-mono uppercase focus:outline-none">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs text-gray-400 mb-1">Card Background</label>
+              <div class="flex items-center gap-2 bg-dark-800 border border-gray-700 rounded-lg p-1.5">
+                <input type="color" id="input-color-bg" value="#0f172a" class="w-7 h-7 rounded cursor-pointer border-0 bg-transparent">
+                <input type="text" id="text-color-bg" value="#0f172a" class="w-full bg-transparent text-xs font-mono uppercase focus:outline-none">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs text-gray-400 mb-1">Title Text Color</label>
+              <div class="flex items-center gap-2 bg-dark-800 border border-gray-700 rounded-lg p-1.5">
+                <input type="color" id="input-color-text" value="#ffffff" class="w-7 h-7 rounded cursor-pointer border-0 bg-transparent">
+                <input type="text" id="text-color-text" value="#ffffff" class="w-full bg-transparent text-xs font-mono uppercase focus:outline-none">
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs text-gray-400 mb-1">
+              <span>Background Opacity</span>
+              <span id="label-bg-opacity">92%</span>
+            </div>
+            <input type="range" id="input-bg-opacity" min="0" max="100" value="92" class="w-full">
+          </div>
+        </div>
+
+        <!-- Typography -->
+        <div class="border-t border-gray-800 pt-4 space-y-3">
+          <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Typography</label>
+          <div>
+            <label class="block text-xs text-gray-400 mb-1">Font Family</label>
+            <select id="select-font-family" class="w-full bg-dark-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500">
+              <option value="Inter" selected>Inter (Clean Modern Sans)</option>
+              <option value="Montserrat">Montserrat (Bold Punchy)</option>
+              <option value="Bebas Neue">Bebas Neue (Tall Broadcast)</option>
+              <option value="Orbitron">Orbitron (Cyber / Tech)</option>
+              <option value="Playfair Display">Playfair Display (Cinematic Serif)</option>
+              <option value="Poppins">Poppins (Friendly Geometric)</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <div class="flex justify-between text-xs text-gray-400 mb-1">
+                <span>Title Scale</span>
+                <span id="label-title-size">100%</span>
+              </div>
+              <input type="range" id="input-title-size" min="60" max="150" value="100" class="w-full">
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs text-gray-400 mb-1">
+                <span>Subtitle Scale</span>
+                <span id="label-sub-size">100%</span>
+              </div>
+              <input type="range" id="input-sub-size" min="60" max="150" value="100" class="w-full">
+            </div>
+          </div>
+        </div>
+
+        <!-- Layout & Screen Placement -->
+        <div class="border-t border-gray-800 pt-4 space-y-3">
+          <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Screen Placement</label>
+          <div class="grid grid-cols-3 gap-2">
+            <button class="pos-preset-btn px-2.5 py-1.5 rounded-lg text-xs bg-indigo-900/40 text-indigo-300 border border-indigo-500/50 font-medium" data-pos="bottom-left">Bottom Left</button>
+            <button class="pos-preset-btn px-2.5 py-1.5 rounded-lg text-xs bg-dark-800 text-gray-400 hover:text-white border border-gray-700 font-medium" data-pos="bottom-center">Bottom Center</button>
+            <button class="pos-preset-btn px-2.5 py-1.5 rounded-lg text-xs bg-dark-800 text-gray-400 hover:text-white border border-gray-700 font-medium" data-pos="bottom-right">Bottom Right</button>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 pt-1">
+            <div>
+              <div class="flex justify-between text-xs text-gray-400 mb-1">
+                <span>Horizontal Margin</span>
+                <span id="label-margin-x">80px</span>
+              </div>
+              <input type="range" id="input-margin-x" min="20" max="300" value="80" class="w-full">
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs text-gray-400 mb-1">
+                <span>Bottom Margin</span>
+                <span id="label-margin-y">80px</span>
+              </div>
+              <input type="range" id="input-margin-y" min="20" max="300" value="80" class="w-full">
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic FX & Luxury Shimmer (Sheen) -->
+        <div class="border-t border-gray-800 pt-4 space-y-3">
+          <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider flex items-center justify-between">
+            <span class="flex items-center gap-1.5 text-indigo-300">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>Dynamic FX & Shimmer</span>
+            </span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded bg-indigo-900/60 text-indigo-300 font-mono font-bold uppercase">4K Ready</span>
+          </label>
+
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-dark-800 border border-gray-700">
+            <div class="space-y-0.5 pr-2">
+              <div class="text-xs font-medium text-white flex items-center gap-1.5">
+                <span>Light Sweep Sheen</span>
+                <span class="text-[9px] px-1 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono">Luxury</span>
+              </div>
+              <p class="text-[10px] text-gray-400">Sweeps luxury reflective light sheen across card periodically</p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer shrink-0">
+              <input type="checkbox" id="toggle-light-sweep" class="sr-only peer" checked>
+              <div class="w-9 h-5 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+            </label>
+          </div>
+
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-dark-800 border border-gray-700">
+            <div class="space-y-0.5 pr-2">
+              <div class="text-xs font-medium text-white flex items-center gap-1.5">
+                <span>Auto-Responsive Width</span>
+                <span class="text-[9px] px-1 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono">Smart Fit</span>
+              </div>
+              <p class="text-[10px] text-gray-400">Auto-expands box width to fit long names & Khmer text</p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer shrink-0">
+              <input type="checkbox" id="toggle-auto-width" class="sr-only peer" checked>
+              <div class="w-9 h-5 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: MOTION & TIMING -->
+      <div id="tab-animation" class="tab-content hidden p-4 space-y-4">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between border-b border-gray-800 pb-2">
+            <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="play-circle" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>Motion Transitions</span>
+            </label>
+            <button id="btn-replay-motion" class="px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white text-[11px] font-semibold flex items-center gap-1 transition shadow-sm">
+              <i data-lucide="play" class="w-3 h-3"></i>
+              <span>Test Motion</span>
+            </button>
+          </div>
+
+          <!-- Entrance Motion Style (10 Styles) -->
+          <div>
+            <label class="block text-xs text-gray-400 mb-1">Entrance Transition (10 Motions)</label>
+            <select id="select-motion-in" class="w-full bg-dark-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500">
+              <option value="slide-left" selected>Slide Left (Smooth Glide from Left)</option>
+              <option value="slide-right">Slide Right (Glide from Right)</option>
+              <option value="slide-up">Slide Up (Smooth Float from Bottom)</option>
+              <option value="slide-down">Slide Down (Drop from Above)</option>
+              <option value="elastic-pop">Elastic Bounce Pop (Spring Bouncy Pop)</option>
+              <option value="zoom-fade">Zoom & Fade (Cinematic Push-In)</option>
+              <option value="mask-wipe">Mask Wipe (Curtain Wipe Reveal)</option>
+              <option value="flip-3d">3D Flip Tilt (Perspective Card Reveal)</option>
+              <option value="cyber-glitch">Cyber Glitch Twitch (Digital Teleport)</option>
+              <option value="smooth-fade">Pure Smooth Dissolve (Stationary Fade)</option>
+            </select>
+          </div>
+
+          <!-- Quick Entrance Motion Chips -->
+          <div>
+            <span class="text-[11px] text-gray-400 block mb-1">Quick Select Entrance:</span>
+            <div class="grid grid-cols-3 gap-1.5" id="motion-in-chips">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- Exit Motion Style (8 Styles) -->
+          <div class="border-t border-gray-800 pt-3">
+            <label class="block text-xs text-gray-400 mb-1">Exit Transition (8 Motions)</label>
+            <select id="select-motion-out" class="w-full bg-dark-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500">
+              <option value="slide-down" selected>Slide Down (Smooth Drop Out)</option>
+              <option value="slide-left">Slide Left (Glide Out to Left)</option>
+              <option value="slide-right">Slide Right (Glide Out to Right)</option>
+              <option value="slide-up">Slide Up (Ascend and Vanish)</option>
+              <option value="scale-down">Scale Down (Shrink & Collapse to Zero)</option>
+              <option value="mask-wipe">Mask Wipe Collapse (Curtain Shut)</option>
+              <option value="glitch-fade">Cyber Glitch Disintegration</option>
+              <option value="smooth-fade">Pure Dissolve Out</option>
+            </select>
+          </div>
+
+          <!-- Motion Easing Curve -->
+          <div>
+            <label class="block text-xs text-gray-400 mb-1">Animation Easing Curve</label>
+            <select id="select-motion-ease" class="w-full bg-dark-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500">
+              <option value="cubic" selected>Smooth Ease-Out (Cubic)</option>
+              <option value="fluid">Apple Fluid Spring (Overshoot & Settle)</option>
+              <option value="elastic">Elastic Spring Bounce</option>
+              <option value="snappy">Snappy Punch (Power2)</option>
+              <option value="linear">Linear Constant</option>
+            </select>
+          </div>
+
+          <!-- Duration Sliders -->
+          <div class="space-y-3 border-t border-gray-800 pt-3">
+            <!-- Quick Preset Video Lengths -->
+            <div>
+              <div class="flex items-center justify-between text-xs text-gray-400 mb-1.5">
+                <span class="font-semibold text-gray-300">Quick Video Length (រយៈពេលវីដេអូ)</span>
+              </div>
+              <div class="grid grid-cols-6 gap-1 text-[11px]">
+                <button type="button" class="btn-quick-dur py-1 rounded bg-dark-800 hover:bg-gray-700 text-gray-300 border border-gray-700 transition font-mono" data-dur="5">5s</button>
+                <button type="button" class="btn-quick-dur py-1 rounded bg-dark-800 hover:bg-gray-700 text-gray-300 border border-gray-700 transition font-mono" data-dur="10">10s</button>
+                <button type="button" class="btn-quick-dur py-1 rounded bg-dark-800 hover:bg-gray-700 text-gray-300 border border-gray-700 transition font-mono" data-dur="15">15s</button>
+                <button type="button" class="btn-quick-dur py-1 rounded bg-indigo-900/70 hover:bg-indigo-800 text-indigo-300 border border-indigo-500/50 transition font-mono font-bold" data-dur="20">20s</button>
+                <button type="button" class="btn-quick-dur py-1 rounded bg-dark-800 hover:bg-gray-700 text-gray-300 border border-gray-700 transition font-mono" data-dur="30">30s</button>
+                <button type="button" class="btn-quick-dur py-1 rounded bg-dark-800 hover:bg-gray-700 text-gray-300 border border-gray-700 transition font-mono" data-dur="60">60s</button>
+              </div>
+            </div>
+
+            <!-- Custom Total Duration Input -->
+            <div class="flex items-center justify-between text-xs text-gray-400 bg-dark-800/60 border border-gray-700/60 rounded-lg p-2">
+              <span class="text-[11px] font-medium text-gray-300">Custom Duration (កំណត់ដោយខ្លួនឯង):</span>
+              <div class="flex items-center gap-1.5">
+                <input type="number" id="input-custom-total-dur" min="1" max="180" step="1" value="20" class="w-16 bg-dark-900 border border-indigo-500/60 rounded px-2 py-0.5 text-xs text-white text-right font-mono font-semibold focus:outline-none">
+                <span class="text-xs font-mono text-gray-400">sec</span>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs text-gray-400 mb-1">
+                <span>Intro Duration</span>
+                <span id="label-dur-in">0.8 s</span>
+              </div>
+              <input type="range" id="input-dur-in" min="0.2" max="2.0" step="0.1" value="0.8" class="w-full accent-indigo-500">
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs text-gray-400 mb-1">
+                <span>Hold / On-Screen Display Time</span>
+                <span id="label-dur-hold">18.5 s</span>
+              </div>
+              <input type="range" id="input-dur-hold" min="0.5" max="90.0" step="0.5" value="18.5" class="w-full accent-indigo-500">
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs text-gray-400 mb-1">
+                <span>Outro Duration (0 = Stays on screen)</span>
+                <span id="label-dur-out">0.7 s</span>
+              </div>
+              <input type="range" id="input-dur-out" min="0.0" max="2.0" step="0.1" value="0.7" class="w-full accent-indigo-500">
+            </div>
+
+            <div class="p-2.5 rounded-lg bg-indigo-950/40 border border-indigo-500/40 text-[11px] text-gray-300 flex justify-between items-center">
+              <span>Total Video Duration:</span>
+              <strong id="label-total-dur" class="text-indigo-300 font-mono text-xs">20.0 s (1200 frames @ 60fps)</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div> <!-- End sidebar-scroll-container -->
+    </aside>
+
+    <!-- RIGHT MAIN: Live Canvas Stage & Playback -->
+    <main class="flex-1 flex flex-col bg-dark-950 overflow-hidden h-full">
+
+      <!-- Stage Top Toolbar -->
+      <div class="h-11 shrink-0 border-b border-gray-800 px-4 flex items-center justify-between bg-dark-900 text-xs">
+        <div class="flex items-center gap-2">
+          <span class="text-gray-400 font-mono text-[11px]" data-i18n="stage.res">RES:</span>
+          <select id="select-resolution" class="bg-dark-800 border border-indigo-500/40 hover:border-indigo-400 text-indigo-300 font-mono text-[11px] font-semibold rounded px-2 py-0.5 focus:outline-none transition cursor-pointer" title="Switch between 1080p Full HD and 4K UHD Studio Canvas">
+            <option value="1080p" selected>1080p Full HD (1920 × 1080)</option>
+            <option value="4k">4K Ultra HD (3840 × 2160)</option>
+          </select>
+          <span class="text-gray-600">|</span>
+          <span class="text-gray-400 text-[11px]" data-i18n="stage.zoom">Zoom:</span>
+          <select id="select-zoom" class="bg-dark-800 border border-gray-700 rounded px-1.5 py-0.5 text-gray-300 text-[11px] focus:outline-none">
+            <option value="fit" selected data-i18n="stage.zoom_fit">Fit View</option>
+            <option value="0.75">75%</option>
+            <option value="1">100%</option>
+          </select>
+
+          <!-- Canvas Studio History & Selection Quick Actions -->
+          <div class="h-4 w-px bg-gray-800 mx-1"></div>
+          <div class="flex items-center gap-1">
+            <button id="btn-stage-undo" class="p-1 rounded hover:bg-gray-800 text-gray-400 hover:text-white transition disabled:opacity-30 disabled:cursor-not-allowed" title="Undo (Ctrl+Z)" disabled>
+              <i data-lucide="undo-2" class="w-3.5 h-3.5"></i>
+            </button>
+            <button id="btn-stage-redo" class="p-1 rounded hover:bg-gray-800 text-gray-400 hover:text-white transition disabled:opacity-30 disabled:cursor-not-allowed" title="Redo (Ctrl+Y / Ctrl+Shift+Z)" disabled>
+              <i data-lucide="redo-2" class="w-3.5 h-3.5"></i>
+            </button>
+            <div class="h-3.5 w-px bg-gray-800 mx-1"></div>
+            <button id="btn-stage-select-all" class="px-2 py-0.5 rounded hover:bg-indigo-950/60 hover:border-indigo-500/40 border border-transparent text-gray-300 hover:text-white text-[11px] font-medium transition flex items-center gap-1" title="Select All Elements (Ctrl+A)">
+              <i data-lucide="check-square" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span data-i18n="stage.select_all">Select All</span>
+            </button>
+            <button id="btn-stage-delete" class="px-2 py-0.5 rounded hover:bg-red-950/60 hover:border-red-500/40 border border-transparent text-gray-400 hover:text-red-300 text-[11px] font-medium transition flex items-center gap-1" title="Delete Selected or All (Del)">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5 text-red-400"></i>
+              <span data-i18n="stage.delete">Delete</span>
+            </button>
+            <div class="h-3.5 w-px bg-gray-800 mx-1"></div>
+            <button id="btn-stage-upload-img" class="px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-[11px] transition shadow shadow-indigo-600/30 flex items-center gap-1.5 cursor-pointer" title="Upload Photos directly to Canvas (Supports multiple images, Drag &amp; Drop, or Ctrl+V)">
+              <i data-lucide="image-plus" class="w-3.5 h-3.5"></i>
+              <span data-i18n="stage.upload_photo">+ Upload Photo</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Preview Background Mode (Checkerboard, Dark, Light, Sample footage, Upload sample) -->
+        <div class="flex items-center gap-2">
+          <span class="text-gray-400 text-[11px]" data-i18n="stage.bg_label">Stage BG:</span>
+          <div class="flex rounded-md bg-dark-800 p-0.5 border border-gray-700 text-[11px]">
+            <button class="stage-bg-btn active px-2 py-0.5 rounded text-white font-medium" data-bg="checkerboard" title="Transparent Alpha Checkerboard" data-i18n="stage.bg_alpha">Alpha</button>
+            <button class="stage-bg-btn px-2 py-0.5 rounded text-gray-400 hover:text-white" data-bg="green" title="Green Screen for CapCut Chroma Key" data-i18n="stage.bg_green">Green</button>
+            <button class="stage-bg-btn px-2 py-0.5 rounded text-gray-400 hover:text-white" data-bg="dark" title="Solid Dark Background" data-i18n="stage.bg_dark">Dark</button>
+            <button class="stage-bg-btn px-2 py-0.5 rounded text-gray-400 hover:text-white" data-bg="light" title="Solid Light Background" data-i18n="stage.bg_light">Light</button>
+            <button class="stage-bg-btn px-2 py-0.5 rounded text-gray-400 hover:text-white" data-bg="sample-video" title="Simulate Real Footage" data-i18n="stage.bg_sample">Sample</button>
+          </div>
+
+          <input type="file" id="input-custom-bg" accept="image/*,video/*" class="hidden">
+          <input type="file" id="input-direct-image-upload" accept="image/*" multiple class="hidden">
+          <input type="file" id="input-replace-element-image" accept="image/*" class="hidden">
+          <button onclick="document.getElementById('input-custom-bg').click()" title="Upload your own background video or photo to preview overlay" class="p-1 rounded bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white transition">
+            <i data-lucide="folder-open" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Canvas Center Workspace -->
+      <div id="canvas-container" class="flex-1 min-h-0 min-w-0 p-4 flex items-center justify-center overflow-hidden relative checkerboard-pattern">
+        <!-- Drag & Drop visual hint overlay -->
+        <div id="canvas-drop-overlay" class="absolute inset-4 rounded-xl border-2 border-dashed border-indigo-400 bg-indigo-950/85 backdrop-blur-sm z-40 hidden flex flex-col items-center justify-center pointer-events-none transition">
+          <i data-lucide="download-cloud" class="w-12 h-12 text-indigo-300 animate-bounce mb-2"></i>
+          <p class="text-white font-bold text-base">Drop your photos here</p>
+          <p class="text-indigo-200 text-xs mt-1">Photos will be added directly onto the canvas</p>
+        </div>
+
+        <!-- Floating Canvas Studio Quick Action Indicator -->
+        <div id="canvas-floating-hint" class="absolute top-6 z-20 hidden pointer-events-none px-3.5 py-1.5 rounded-full bg-dark-900/90 border border-indigo-500/40 text-indigo-300 text-xs font-medium shadow-2xl backdrop-blur-md flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-indigo-500 animate-ping"></span>
+          <span><strong>Canvas Studio:</strong> Click &amp; drag elements • Pull corner handles to resize • Right-click for options</span>
+        </div>
+
+        <!-- Canva-Style Floating Quick Action Bar for Selected Element -->
+        <div id="canvas-floating-toolbar" class="absolute z-30 hidden px-2 py-1 rounded-lg bg-dark-900/95 border border-indigo-500/60 shadow-2xl backdrop-blur-md flex items-center gap-1 text-xs select-none pointer-events-auto">
+          <button id="float-btn-replace-img" title="Change / Upload Photo" class="hidden px-2 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white flex items-center gap-1 transition">
+            <i data-lucide="image-plus" class="w-3.5 h-3.5"></i>
+            <span class="text-[11px] font-medium">Change Photo</span>
+          </button>
+          <!-- 1-Click Direct On-Canvas Text Edit Button -->
+          <button id="float-btn-edit-text" title="Edit Text directly on Canvas (Double-Click)" class="hidden px-2 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white flex items-center gap-1 transition shadow-sm">
+            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+            <span class="text-[11px] font-medium">✏️ Edit Text</span>
+          </button>
+          <!-- Quick Khmer Font Selector on Floating Canvas Bar -->
+          <div id="float-khmer-font-wrap" class="hidden items-center gap-1 bg-dark-800 rounded px-1.5 py-0.5 border border-indigo-500/40">
+            <span class="text-[10px] text-indigo-300 font-semibold">🇰🇭 Font:</span>
+            <select id="float-select-font" class="bg-dark-900 border border-gray-700 text-white rounded px-1 py-0.5 text-[11px] focus:outline-none cursor-pointer">
+              <optgroup label="🇰🇭 Khmer Unicode Fonts (ពុម្ពអក្សរខ្មែរ)">
+                <option value="Kantumruy Pro">Kantumruy Pro (កន្តុំរុយ)</option>
+                <option value="Moul">Moul (អក្សរមូល)</option>
+                <option value="Battambang">Battambang (បាត់ដំបង)</option>
+                <option value="Koulen">Koulen (គូលែន)</option>
+                <option value="Bayon">Bayon (បាយ័ន)</option>
+                <option value="Dangrek">Dangrek (ដងរែក)</option>
+                <option value="Siemreap">Siemreap (សៀមរាប)</option>
+                <option value="Preahvihear">Preahvihear (ព្រះវិហារ)</option>
+                <option value="Bokor">Bokor (បូកគោ)</option>
+                <option value="Nokora">Nokora (នគរា)</option>
+              </optgroup>
+              <optgroup label="🅰️ Modern English Fonts">
+                <option value="Inter">Inter</option>
+                <option value="Montserrat">Montserrat</option>
+                <option value="Poppins">Poppins</option>
+                <option value="Anton">Anton</option>
+                <option value="Bebas Neue">Bebas Neue</option>
+                <option value="Oswald">Oswald</option>
+                <option value="Playfair Display">Playfair</option>
+              </optgroup>
+            </select>
+          </div>
+          <button id="float-btn-toggle-run" title="Make Text Run (News Ticker Marquee)" class="hidden px-2 py-1 rounded bg-amber-600 hover:bg-amber-500 text-white flex items-center gap-1 transition shadow-sm">
+            <i data-lucide="play-circle" class="w-3.5 h-3.5"></i>
+            <span id="float-text-run-label" class="text-[11px] font-medium">🏃 Run Text</span>
+          </button>
+          <button id="float-btn-toggle-dir" title="Switch Running Direction (Right ↔ Left / ពីណាទៅណា)" class="hidden px-2 py-1 rounded bg-indigo-700 hover:bg-indigo-600 text-white flex items-center gap-1 transition shadow-sm">
+            <span id="float-text-dir-label" class="text-[11px] font-medium">⬅️ ពីស្តាំទៅឆ្វេង</span>
+          </button>
+          <button id="float-btn-full-track" title="Stretch Running Track Across Canvas (ពីឆ្វេងដល់ស្តាំ)" class="hidden px-2 py-1 rounded bg-purple-700 hover:bg-purple-600 text-white flex items-center gap-1 transition shadow-sm">
+            <span class="text-[11px] font-medium">↔️ Full Width</span>
+          </button>
+          <button id="float-btn-copy" title="Copy (Ctrl+C)" class="px-2 py-1 rounded hover:bg-gray-800 text-gray-300 hover:text-white flex items-center gap-1 transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5 text-indigo-400"></i>
+            <span class="text-[11px] font-medium">Copy</span>
+          </button>
+          <button id="float-btn-paste" title="Paste (Ctrl+V)" class="px-2 py-1 rounded hover:bg-gray-800 text-gray-300 hover:text-white flex items-center gap-1 transition">
+            <i data-lucide="clipboard" class="w-3.5 h-3.5 text-indigo-400"></i>
+            <span class="text-[11px] font-medium">Paste</span>
+          </button>
+          <button id="float-btn-dup" title="Duplicate (Ctrl+D / Alt+Drag)" class="px-2 py-1 rounded hover:bg-gray-800 text-gray-300 hover:text-white flex items-center gap-1 transition">
+            <i data-lucide="copy-plus" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span class="text-[11px] font-medium">Duplicate</span>
+          </button>
+          <span class="w-[1px] h-4 bg-gray-700 mx-0.5"></span>
+          <button id="float-btn-select-all" title="Select All (Ctrl+A)" class="px-2 py-1 rounded hover:bg-gray-800 text-gray-300 hover:text-white flex items-center gap-1 transition">
+            <i data-lucide="check-square" class="w-3.5 h-3.5 text-indigo-400"></i>
+            <span class="text-[11px] font-medium">Select All</span>
+          </button>
+          <span class="w-[1px] h-4 bg-gray-700 mx-0.5"></span>
+          <button id="float-btn-up" title="Bring Forward" class="p-1 rounded hover:bg-gray-800 text-gray-300 hover:text-white transition">
+            <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>
+          </button>
+          <button id="float-btn-down" title="Send Backward" class="p-1 rounded hover:bg-gray-800 text-gray-300 hover:text-white transition">
+            <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
+          </button>
+          <span class="w-[1px] h-4 bg-gray-700 mx-0.5"></span>
+          <button id="float-btn-del" title="Delete (Del)" class="p-1 rounded hover:bg-red-500/20 text-gray-400 hover:text-red-400 transition">
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <!-- Direct On-Canvas Inline Text Editor (Opens on Double-Click or Click ✏️ Edit Text) -->
+        <div id="canvas-inline-text-editor" class="absolute z-40 hidden p-3 rounded-2xl bg-dark-900/98 border border-indigo-500/80 shadow-2xl backdrop-blur-xl flex flex-col gap-2.5 w-[380px] pointer-events-auto">
+          <div class="flex items-center justify-between border-b border-gray-800 pb-2">
+            <span class="text-xs font-bold text-white flex items-center gap-1.5">
+              <i data-lucide="edit-3" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span data-i18n="editor.title">Edit Text On Canvas (កែអក្សរផ្ទាល់លើអេក្រង់)</span>
+            </span>
+            <button id="btn-close-inline-editor" class="text-gray-400 hover:text-white text-xs px-2 py-0.5 rounded bg-gray-800 hover:bg-gray-700 transition" data-i18n="editor.done">✕ Done</button>
+          </div>
+
+          <div>
+            <textarea id="input-inline-canvas-text" rows="2" class="w-full bg-dark-950 border border-gray-700 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-indigo-500 font-sans leading-relaxed" placeholder="វាយអក្សរខ្មែរ ឬ អង់គ្លេសនៅទីនេះ..." data-i18n-placeholder="editor.placeholder"></textarea>
+          </div>
+
+          <!-- Quick Khmer Font Switcher -->
+          <div class="space-y-1">
+            <div class="flex items-center justify-between text-[11px] text-gray-400">
+              <span>🇰🇭 Khmer Font (ពុម្ពអក្សរខ្មែរ):</span>
+              <span id="label-inline-active-font" class="text-indigo-400 font-medium">Kantumruy Pro</span>
+            </div>
+            <select id="select-inline-font" class="w-full bg-dark-950 border border-indigo-500/50 rounded-lg p-1.5 text-xs text-white focus:outline-none cursor-pointer">
+              <optgroup label="🇰🇭 Khmer Unicode Fonts (ពុម្ពអក្សរខ្មែរ)">
+                <option value="Kantumruy Pro">🇰🇭 Kantumruy Pro (កន្តុំរុយ - Modern Clean)</option>
+                <option value="Moul">🇰🇭 Moul (មូឡ - អក្សរមូល Headline)</option>
+                <option value="Battambang">🇰🇭 Battambang (បាត់ដំបង - Classic Sans)</option>
+                <option value="Koulen">🇰🇭 Koulen (គូលែន - Tall Bold Header)</option>
+                <option value="Bayon">🇰🇭 Bayon (បាយ័ន - Heavy Title)</option>
+                <option value="Dangrek">🇰🇭 Dangrek (ដងរែក - Display)</option>
+                <option value="Siemreap">🇰🇭 Siemreap (សៀមរាប - Clean Body)</option>
+                <option value="Preahvihear">🇰🇭 Preahvihear (ព្រះវិហារ - Classic)</option>
+                <option value="Bokor">🇰🇭 Bokor (បូកគោ - Decorative)</option>
+                <option value="Nokora">🇰🇭 Nokora (នគរា - Clean Sans)</option>
+              </optgroup>
+              <optgroup label="🅰️ Modern English Fonts">
+                <option value="Inter">Inter (Clean Modern)</option>
+                <option value="Montserrat">Montserrat (Bold Commercial)</option>
+                <option value="Poppins">Poppins (Geometric)</option>
+                <option value="Anton">Anton (Heavy Impact)</option>
+                <option value="Bebas Neue">Bebas Neue (Tall Broadcast)</option>
+                <option value="Oswald">Oswald (Condensed)</option>
+                <option value="Playfair Display">Playfair (Serif)</option>
+              </optgroup>
+            </select>
+
+            <!-- 5 Quick Khmer Font 1-Click Buttons -->
+            <div class="grid grid-cols-5 gap-1 pt-1">
+              <button type="button" class="btn-inline-khmer-chip py-1 px-1 rounded bg-dark-950 hover:bg-indigo-900/60 border border-indigo-500/40 text-indigo-300 text-[10px] truncate" data-font="Kantumruy Pro" style="font-family: 'Kantumruy Pro', sans-serif">កន្តុំរុយ</button>
+              <button type="button" class="btn-inline-khmer-chip py-1 px-1 rounded bg-dark-950 hover:bg-amber-900/60 border border-amber-500/40 text-amber-300 text-[10px] truncate" data-font="Moul" style="font-family: 'Moul', cursive">អក្សរមូល</button>
+              <button type="button" class="btn-inline-khmer-chip py-1 px-1 rounded bg-dark-950 hover:bg-gray-800 border border-gray-700 text-gray-300 text-[10px] truncate" data-font="Battambang" style="font-family: 'Battambang', sans-serif">បាត់ដំបង</button>
+              <button type="button" class="btn-inline-khmer-chip py-1 px-1 rounded bg-dark-950 hover:bg-gray-800 border border-gray-700 text-gray-300 text-[10px] truncate" data-font="Koulen" style="font-family: 'Koulen', sans-serif">គូលែន</button>
+              <button type="button" class="btn-inline-khmer-chip py-1 px-1 rounded bg-dark-950 hover:bg-gray-800 border border-gray-700 text-gray-300 text-[10px] truncate" data-font="Siemreap" style="font-family: 'Siemreap', sans-serif">សៀមរាប</button>
+            </div>
+          </div>
+
+          <!-- Font Size & Color Inline -->
+          <div class="grid grid-cols-2 gap-2 pt-1 border-t border-gray-800">
+            <div>
+              <label class="block text-[10px] text-gray-400 mb-0.5">Size: <span id="label-inline-size">24px</span></label>
+              <input type="range" id="input-inline-size" min="10" max="72" value="24" class="w-full accent-indigo-500">
+            </div>
+            <div>
+              <label class="block text-[10px] text-gray-400 mb-0.5">Color</label>
+              <div class="flex items-center gap-1.5 bg-dark-950 border border-gray-700 rounded p-1">
+                <input type="color" id="input-inline-color" value="#ffffff" class="w-5 h-5 rounded cursor-pointer bg-transparent border-0">
+                <span id="label-inline-color" class="text-[10px] font-mono text-gray-300">#ffffff</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right-Click Context Menu (Canva Style) -->
+        <div id="canvas-context-menu" class="fixed z-50 hidden w-52 rounded-lg bg-dark-900 border border-gray-700 shadow-2xl py-1 text-xs text-gray-200 select-none backdrop-blur-md">
+          <button id="ctx-btn-undo" class="w-full px-3 py-1.5 text-left hover:bg-indigo-600 hover:text-white flex items-center justify-between transition">
+            <span class="flex items-center gap-2"><i data-lucide="undo-2" class="w-3.5 h-3.5"></i> Undo</span>
+            <span class="text-[10px] text-gray-400">Ctrl+Z</span>
+          </button>
+          <button id="ctx-btn-redo" class="w-full px-3 py-1.5 text-left hover:bg-indigo-600 hover:text-white flex items-center justify-between transition">
+            <span class="flex items-center gap-2"><i data-lucide="redo-2" class="w-3.5 h-3.5"></i> Redo</span>
+            <span class="text-[10px] text-gray-400">Ctrl+Y</span>
+          </button>
+          <div class="h-[1px] bg-gray-800 my-1"></div>
+          <button id="ctx-btn-copy" class="w-full px-3 py-1.5 text-left hover:bg-indigo-600 hover:text-white flex items-center justify-between transition">
+            <span class="flex items-center gap-2"><i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy</span>
+            <span class="text-[10px] text-gray-400">Ctrl+C</span>
+          </button>
+          <button id="ctx-btn-paste" class="w-full px-3 py-1.5 text-left hover:bg-indigo-600 hover:text-white flex items-center justify-between transition">
+            <span class="flex items-center gap-2"><i data-lucide="clipboard" class="w-3.5 h-3.5"></i> Paste</span>
+            <span class="text-[10px] text-gray-400">Ctrl+V</span>
+          </button>
+          <button id="ctx-btn-dup" class="w-full px-3 py-1.5 text-left hover:bg-indigo-600 hover:text-white flex items-center justify-between transition">
+            <span class="flex items-center gap-2"><i data-lucide="copy-plus" class="w-3.5 h-3.5"></i> Duplicate</span>
+            <span class="text-[10px] text-gray-400">Ctrl+D</span>
+          </button>
+          <div class="h-[1px] bg-gray-800 my-1"></div>
+          <button id="ctx-btn-select-all" class="w-full px-3 py-1.5 text-left hover:bg-indigo-600 hover:text-white flex items-center justify-between transition">
+            <span class="flex items-center gap-2"><i data-lucide="check-square" class="w-3.5 h-3.5"></i> Select All</span>
+            <span class="text-[10px] text-gray-400">Ctrl+A</span>
+          </button>
+          <div class="h-[1px] bg-gray-800 my-1"></div>
+          <button id="ctx-btn-front" class="w-full px-3 py-1.5 text-left hover:bg-indigo-600 hover:text-white flex items-center gap-2 transition">
+            <i data-lucide="chevrons-up" class="w-3.5 h-3.5"></i> Bring to Front
+          </button>
+          <button id="ctx-btn-forward" class="w-full px-3 py-1.5 text-left hover:bg-indigo-600 hover:text-white flex items-center justify-between transition">
+            <span class="flex items-center gap-2"><i data-lucide="arrow-up" class="w-3.5 h-3.5"></i> Bring Forward</span>
+            <span class="text-[10px] text-gray-400">Ctrl+]</span>
+          </button>
+          <button id="ctx-btn-backward" class="w-full px-3 py-1.5 text-left hover:bg-indigo-600 hover:text-white flex items-center justify-between transition">
+            <span class="flex items-center gap-2"><i data-lucide="arrow-down" class="w-3.5 h-3.5"></i> Send Backward</span>
+            <span class="text-[10px] text-gray-400">Ctrl+[</span>
+          </button>
+          <button id="ctx-btn-back" class="w-full px-3 py-1.5 text-left hover:bg-indigo-600 hover:text-white flex items-center gap-2 transition">
+            <i data-lucide="chevrons-down" class="w-3.5 h-3.5"></i> Send to Back
+          </button>
+          <div class="h-[1px] bg-gray-800 my-1"></div>
+          <button id="ctx-btn-del" class="w-full px-3 py-1.5 text-left hover:bg-red-600 hover:text-white text-red-400 flex items-center justify-between transition">
+            <span class="flex items-center gap-2"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Delete</span>
+            <span class="text-[10px]">Del</span>
+          </button>
+          <button id="ctx-btn-del-all" class="w-full px-3 py-1.5 text-left hover:bg-red-700 hover:text-white text-red-400 flex items-center justify-between transition">
+            <span class="flex items-center gap-2"><i data-lucide="trash" class="w-3.5 h-3.5"></i> Delete All</span>
+            <span class="text-[10px]">Ctrl+A, Del</span>
+          </button>
+        </div>
+
+        <!-- Toast Feedback Bubble -->
+        <div id="canvas-toast" class="absolute bottom-6 z-30 hidden pointer-events-none px-3.5 py-1.5 rounded-lg bg-dark-900/95 border border-indigo-500/50 text-white text-xs font-medium shadow-2xl flex items-center gap-2 transition">
+          <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span id="canvas-toast-msg">Copied to clipboard</span>
+        </div>
+
+        <!-- Optional background simulation (stays behind canvas at z-0) -->
+        <video id="stage-bg-video" class="absolute inset-auto z-0 hidden object-cover pointer-events-none rounded-lg shadow-2xl" loop muted playsinline></video>
+        <img id="stage-bg-image" class="absolute inset-auto z-0 hidden object-cover pointer-events-none rounded-lg shadow-2xl" alt="Preview Background">
+
+        <!-- Master Rendering Canvas (1920x1080) - Stays in front at z-10 with transparent background -->
+        <canvas id="renderCanvas" width="1920" height="1080" class="relative z-10 shadow-2xl rounded-lg border border-gray-800"></canvas>
+      </div>
+
+      <!-- Bottom Timeline & Controls -->
+      <div class="h-20 shrink-0 border-t border-gray-800 bg-dark-900 px-6 flex flex-col justify-center gap-2">
+
+        <!-- Scrubber Bar -->
+        <div class="flex items-center gap-3">
+          <span id="time-current" class="font-mono text-xs text-indigo-400 w-12 text-right">0.00s</span>
+          <div class="flex-1 relative flex items-center group py-1">
+            <input type="range" id="timeline-scrubber" min="0" max="1000" value="0" class="w-full h-1.5 bg-dark-800 rounded-lg appearance-none cursor-pointer">
+            <!-- Phase Markers -->
+            <div id="marker-intro-end" class="absolute top-1/2 -translate-y-1/2 w-0.5 h-3 bg-green-500 pointer-events-none" title="Intro Ends"></div>
+            <div id="marker-hold-end" class="absolute top-1/2 -translate-y-1/2 w-0.5 h-3 bg-yellow-500 pointer-events-none" title="Outro Starts"></div>
+          </div>
+          <span id="time-total" class="font-mono text-xs text-gray-400 w-12">5.00s</span>
+        </div>
+
+        <!-- Transport Buttons -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <button id="btn-replay" class="p-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white transition" title="Restart Animation (Home)" data-i18n-title="timeline.restart">
+              <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+            </button>
+            <button id="btn-play-pause" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs flex items-center gap-1.5 shadow-md shadow-indigo-600/30 transition active:scale-95">
+              <i data-lucide="play" class="w-3.5 h-3.5" id="icon-play-pause"></i>
+              <span id="text-play-pause" data-i18n="timeline.play">Play Preview</span>
+            </button>
+            <button id="btn-loop-toggle" class="p-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-indigo-400 transition" title="Toggle Loop">
+              <i data-lucide="repeat" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <div class="flex items-center gap-4 text-xs text-gray-400">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-green-400"></span>
+              <span class="font-mono text-[11px]" data-i18n="timeline.fps">Real-Time 60 FPS</span>
+            </div>
+            <div class="hidden md:flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-gray-800 border border-gray-700 text-[11px] text-gray-300 font-mono">VP9 Alpha Enabled</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Export Progress Modal -->
+  <div id="export-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+    <div class="bg-dark-900 border border-gray-700 rounded-2xl p-6 w-[420px] shadow-2xl text-center space-y-4">
+      <div class="w-12 h-12 rounded-full bg-indigo-900/50 text-indigo-400 border border-indigo-500/30 flex items-center justify-center mx-auto">
+        <i data-lucide="loader-2" class="w-6 h-6 animate-spin" id="export-modal-spinner"></i>
+        <i data-lucide="check" class="w-6 h-6 text-green-400 hidden" id="export-modal-check"></i>
+      </div>
+
+      <div>
+        <h3 class="text-base font-bold text-white" id="export-modal-title" data-i18n="export.rendering_title">Rendering Alpha Video...</h3>
+        <p class="text-xs text-gray-400 mt-1" id="export-modal-desc" data-i18n="export.rendering_desc">Encoding transparent 60fps WebM video with VP9 alpha channel.</p>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="w-full bg-dark-800 rounded-full h-2 overflow-hidden border border-gray-700">
+        <div id="export-progress-bar" class="h-full bg-indigo-500 w-0 transition-all duration-100"></div>
+      </div>
+      <div class="flex justify-between text-xs font-mono text-gray-400">
+        <span id="export-frame-count">Frame 0 / 300</span>
+        <span id="export-percent">0%</span>
+      </div>
+
+      <div class="pt-2">
+        <button id="btn-cancel-export" class="px-4 py-1.5 rounded-lg text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 transition" data-i18n="export.cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- OBS Overlay Mode Modal / Link Info -->
+  <div id="obs-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+    <div class="bg-dark-900 border border-gray-700 rounded-2xl p-6 w-[520px] shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+        <div class="flex items-center gap-2">
+          <i data-lucide="radio" class="w-5 h-5 text-indigo-400"></i>
+          <h3 class="text-sm font-bold text-white">OBS Studio / vMix Browser Source</h3>
+        </div>
+        <button id="btn-close-obs" class="text-gray-400 hover:text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="text-xs text-gray-300 space-y-2">
+        <p>To use this lower third dynamically in OBS Studio or vMix:</p>
+        <ol class="list-decimal list-inside space-y-1 text-gray-400">
+          <li>Add a new <strong>Browser Source</strong> in OBS.</li>
+          <li>Set Resolution to <strong class="text-white">1920 × 1080</strong>.</li>
+          <li>Paste the live URL below. Any edits you make here can be mirrored live!</li>
+        </ol>
+      </div>
+
+      <div class="bg-dark-950 border border-gray-700 rounded-lg p-3 flex items-center justify-between gap-2">
+        <input type="text" id="obs-url-input" readonly class="bg-transparent text-xs text-indigo-300 font-mono w-full focus:outline-none">
+        <button id="btn-copy-obs-url" class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium shrink-0 flex items-center gap-1 transition">
+          <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+          <span>Copy</span>
+        </button>
+      </div>
+
+      <div class="text-[11px] text-gray-500">
+        Tip: You can also use the exported transparent WebM video directly as a looping Media Source in OBS!
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Logic Scripts -->
+  <script src="js/i18n.js?v=3.0"></script>
+  <script src="js/engine.js?v=3.0"></script>
+  <script src="js/recorder.js?v=3.0"></script>
+  <script src="js/app.js?v=3.0"></script>
+</body>
+</html>
